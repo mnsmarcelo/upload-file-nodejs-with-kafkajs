@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "commonjs",
+    "allowJs": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "lib": [
+      "es2015",
+      "es2016",
+      "esnext.asynciterable",
+      "es2015.promise"
+    ]
+  },
+  "include": [
+    "src/**/*.ts"
+  ]
+}
