@@ -4,7 +4,7 @@ import { Request, Response } from 'express';
 import { PostPhotosKafka } from './PostPhotosKafka';
 import { WriteFile } from './WriteFile';
 
-export class UploadFotosController {
+export class UploadPhotosController {
     constructor(
        private postPhotosKafka: PostPhotosKafka,
        private writeFile: WriteFile
@@ -12,8 +12,9 @@ export class UploadFotosController {
 
     async handle(request: Request, response: Response): Promise<Response> {
         const { photos } = request.files;
+        const arrayFiles: UploadedFile[] = (Array.isArray(photos) ? photos : [photos]);
 
-        Object.values(photos).map((file: UploadedFile) => {
+        arrayFiles.map((file: UploadedFile) => {
             this.writeFile.write(file);
             this.postPhotosKafka.post(file.name);
         });

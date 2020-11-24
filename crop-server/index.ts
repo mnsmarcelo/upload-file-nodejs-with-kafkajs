@@ -1,6 +1,6 @@
 import * as dotenv from 'dotenv';
 import { Kafka } from 'kafkajs';
-import { Resize } from "./resize";
+import { Resize } from './resize';
 import * as fs from 'fs';
 
 dotenv.config();
