@@ -8,6 +8,7 @@
     "start": "tsnd --transpile-only --respawn --ignore-watch node_modules index.ts"
   },
   "dependencies": {
+    "avsc": "^5.5.3",
     "dotenv": "^8.2.0",
     "kafkajs": "^1.14.0"
   },

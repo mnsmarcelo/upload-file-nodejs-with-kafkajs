@@ -1,3 +1,4 @@
+import { Type } from 'avsc';
 import { UploadedFile } from 'express-fileupload';
 import { Request, Response } from 'express';
 
@@ -7,7 +8,8 @@ import { WriteFile } from './WriteFile';
 export class UploadPhotosController {
     constructor(
        private postPhotosKafka: PostPhotosKafka,
-       private writeFile: WriteFile
+       private writeFile: WriteFile,
+       private typeUpload: Type
     ) {}
 
     async handle(request: Request, response: Response): Promise<Response> {
@@ -16,7 +18,8 @@ export class UploadPhotosController {
 
         arrayFiles.map((file: UploadedFile) => {
             this.writeFile.write(file);
-            this.postPhotosKafka.post(file.name);
+            const buffer = this.typeUpload.toBuffer({ dir_file: file.name });
+            this.postPhotosKafka.post(buffer);
         });
 
         return response.status(201).send();

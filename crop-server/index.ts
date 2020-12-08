@@ -1,7 +1,9 @@
 import * as dotenv from 'dotenv';
 import { Kafka } from 'kafkajs';
-import { Resize } from './resize';
 import * as fs from 'fs';
+
+import { Resize } from './resize';
+import { TypeUpload } from './avro/upload-schema';
 
 dotenv.config();
 
@@ -22,7 +24,8 @@ const run = async () => {
 
     await consumer.run({
        eachMessage: async ({ topic, partition, message }) => {
-           Resize(message.value.toString());
+           const valueMessage = TypeUpload.fromBuffer(message.value);
+           Resize(valueMessage.dir_file);
        },
     });
 };
